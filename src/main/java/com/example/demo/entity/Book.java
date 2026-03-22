@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +21,7 @@ public class Book {
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
+    @JsonManagedReference
     private Author author;
 
     public Book() {
