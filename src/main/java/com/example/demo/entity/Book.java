@@ -1,28 +1,40 @@
 package com.example.demo.entity;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+
+@Entity
 public class Book {
 
-	private int id;
-	private String title;
-	private String author;
-	
-	public Book(int id, String title, String author) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;  
+
+    private String title;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    private Author author;
+
+    public Book() {
+        super();
+    }
+
+    public Book(Integer id, String title, Author author) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.author = author;
 	}
 
-	public Book() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -34,18 +46,12 @@ public class Book {
 		this.title = title;
 	}
 
-	public String getAuthor() {
+	public Author getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(String author) {
+	public void setAuthor(Author author) {
 		this.author = author;
 	}
-
-	@Override
-	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author=" + author + "]";
-	}
-	
-	
+    
 }

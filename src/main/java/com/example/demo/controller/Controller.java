@@ -25,23 +25,23 @@ public class Controller {
 		return this.bookServices.getAllBooks();
 	}
 	
-	@GetMapping("/book/{id}")
-	public Book getBook(@PathVariable("id") int id) {
+	@GetMapping("/books/{id}")
+	public Book getBook(@PathVariable int id) {
 		return this.bookServices.getBookById(id);
 	}
 	
-	@PostMapping("/addBook")
+	@PostMapping("/books")
 	public Book addBook(@RequestBody Book b) {
-		return this.bookServices.addBook(b);
+	    return this.bookServices.addBook(b);
 	}
 	
 	@DeleteMapping("/books/{bookId}")
-	public void deleteBook(@PathVariable("bookId") int bookId) {
+	public void deleteBook(@PathVariable int bookId) {
 	    this.bookServices.deleteBook(bookId);
 	}
 	
 	@PutMapping("/books/{bookId}")
-	public Book updateBook(@RequestBody Book book, @PathVariable("bookId") int bookId ) {
+	public Book updateBook(@RequestBody Book book, @PathVariable int bookId ) {
 		this.bookServices.updateBook(book, bookId);
 		return book;
 	}

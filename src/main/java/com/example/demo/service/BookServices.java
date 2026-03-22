@@ -1,56 +1,46 @@
 package com.example.demo.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dao.BookRepository;
 import com.example.demo.entity.Book;
 
 @Service
 public class BookServices {
-
-    private static List<Book> list = new ArrayList<>();
-    
-    static {
-        list.add(new Book(122,"java","xyz"));
-        list.add(new Book(113,"pythan","pqr"));
-        list.add(new Book(102,".NET","abc"));
-    }
+	
+	@Autowired
+	private BookRepository bookRepository;
     
     // get all books
     public List<Book> getAllBooks(){
-        return list;
+    	List<Book> list = (List<Book>) this.bookRepository.findAll();
+    	return list;
     }
     
     // get single book by id
     public Book getBookById(int id) {
-        return list.stream()
-                .filter(e -> e.getId() == id)
-                .findFirst()
-                .orElse(null);
+    	Book book = null;
+    	 book = this.bookRepository.findById(id);
+        return book;
     }
     
     // add book
     public Book addBook(Book b) {
-        list.add(b);
-        return b;
+        Book result = this.bookRepository.save(b);
+        return result;
     }
     
  // delete book
     public void deleteBook(int id) {
-        list.removeIf(b -> b.getId() == id);
+    	this.bookRepository.deleteById(id);
     }
     
     //update the book
     public void updateBook(Book book, int bookId) {
-    	list = list.stream().map(b->{
-    		if(b.getId() == bookId) {
-    			b.setTitle(book.getTitle());
-    			b.setAuthor(book.getAuthor());
-    		}
-    		return b;
-    	}).collect(Collectors.toList());
+    	book.setId(bookId);
+    	this.bookRepository.save(book);
     }
 }
