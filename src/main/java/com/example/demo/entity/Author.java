@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +21,8 @@ public class Author {
 	
 	private String language;
 	
-	@OneToOne(mappedBy = "author")   // 🔥 inverse side
+	@OneToOne(mappedBy = "author")   
+	@JsonBackReference
     private Book book;
 
 
